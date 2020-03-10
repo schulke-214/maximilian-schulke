@@ -1,4 +1,5 @@
 require('dotenv').config();
+const algoliaQueries = require('./src/utils/algolia/queries');
 
 module.exports = {
 	siteMetadata: {
@@ -51,6 +52,15 @@ module.exports = {
 						component: require.resolve('./src/templates/page.tsx')
 					}
 				]
+			}
+		},
+		{
+			resolve: `gatsby-plugin-algolia`,
+			options: {
+				appId: process.env.GATSBY_ALGOLIA_APP_ID,
+				apiKey: process.env.ALGOLIA_ADMIN_KEY,
+				queries: algoliaQueries,
+				chunkSize: 10000
 			}
 		},
 		{
