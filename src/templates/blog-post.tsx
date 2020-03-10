@@ -2,7 +2,7 @@ import React, { FunctionComponent } from 'react';
 import styled from 'styled-components';
 import { graphql } from 'gatsby';
 
-import { Layout } from 'layouts/default';
+import Layout from 'layouts/default';
 import { RichText, asText } from 'components/core/RichText';
 
 import SEO from 'components/layout/SEO';
