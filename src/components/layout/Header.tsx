@@ -51,12 +51,11 @@ const NavigationMobileWrapper = styled.div`
 `;
 
 interface HeaderProps {
-	openSearch(): void;
 	toggleTheme(): void;
 	location: any;
 }
 
-const Header: FunctionComponent<HeaderProps> = ({ toggleTheme, openSearch, location }) => {
+const Header: FunctionComponent<HeaderProps> = ({ toggleTheme, location }) => {
 	const [open, setOpen] = useState(false);
 	const toggleOpen = () => setOpen(o => !o);
 
@@ -65,13 +64,7 @@ const Header: FunctionComponent<HeaderProps> = ({ toggleTheme, openSearch, locat
 	const inverted = false;
 
 	const nav = (
-		<Navigation
-			open={open}
-			inverted={inverted}
-			setOpen={value => setOpen(value)}
-			toggleTheme={toggleTheme}
-			openSearch={openSearch}
-		/>
+		<Navigation open={open} inverted={inverted} setOpen={value => setOpen(value)} toggleTheme={toggleTheme} />
 	);
 
 	return (

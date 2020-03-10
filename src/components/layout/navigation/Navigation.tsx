@@ -61,11 +61,10 @@ const NavigationContainer = styled.ul`
 
 interface NavigationProps extends Invertible, Openable {
 	toggleTheme(): void;
-	openSearch(): void;
 	setOpen(newState: boolean): void;
 }
 
-const Navigation: FunctionComponent<NavigationProps> = ({ inverted: inv, open, toggleTheme, openSearch, setOpen }) => {
+const Navigation: FunctionComponent<NavigationProps> = ({ inverted: inv, open, toggleTheme, setOpen }) => {
 	const size: WindowSize = useWindowSize();
 
 	const inverted: boolean = (() => {
@@ -80,13 +79,7 @@ const Navigation: FunctionComponent<NavigationProps> = ({ inverted: inv, open, t
 				<NavigationItem to='/articles' inverted={inverted}>
 					All Articles
 				</NavigationItem>
-				<NavigationItemRound
-					inverted={inverted}
-					onClick={() => {
-						openSearch();
-						setOpen(false);
-					}}
-					css={SearchWrapperHotfix}>
+				<NavigationItemRound inverted={inverted} to='/search' css={SearchWrapperHotfix}>
 					<Search inverted={inverted} />
 				</NavigationItemRound>
 				<NavigationItemRound
