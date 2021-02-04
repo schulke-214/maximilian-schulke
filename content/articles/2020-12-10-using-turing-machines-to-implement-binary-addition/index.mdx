@@ -1,0 +1,123 @@
+---
+title: Using Turing Machines To Implement Binary Addition
+published: 2020-12-10
+category: theory
+tags:
+  - turing machines
+  - algorithms
+---
+a
+In case you're unfamiliar with this model of computation: A turing machine (named after its founder Alan Turing) is an abstract machine that operates on a tape of input symbols.
+It's capable of proving theoretical things (such as the decision problem) or "executing" actual algorithms.
+
+<!--
+	(Use orange or green?) Illustration of a tape
+-->
+
+The idea is that it should be capable of everything a human can do on a checkered piece of paper using only the following 4 operations:
+
+1. Read a symbol
+2. Write a symbol
+3. Move the head (either left or right)
+4. Change the state of mind (e.g. to remember a read symbol)
+
+The tape (or strip) it operates on is infinite in both ways. It contains the input string of symbols and the head initialy points to the first of these. All other cells are filled with the blank symbol.
+
+A formal definition of a turing machine is simply a 7-Tuple:
+
+```latex
+$TM = (Q, \Gamma, b, \Sigma, \delta, q_{0}, F) \\[0.5em]
+Q =$ A finite non-empty set of states$\newline
+\Gamma =$ A finite non-empty set of tape alphabet symbols$ \newline
+b \in \Gamma =$ The blank symbol$ \newline
+\Sigma \subset \Gamma \setminus \{b\} =$ A finite non-empty set of input symbols$ \newline
+\delta :Q \times \Gamma \to Q \times \Gamma \times \{L,R\} = $ A partial transition function which takes the current state and current input and returns an instruction$ \newline
+q_{0} =$ The initial state$\newline
+F \subseteq Q =$ A finite non-empty set of accepting states
+```
+
+## Binary Addition
+
+To model this problem using a turing machine we need to understand it before we do so. So let's comprehend the basics again. We start by writing the first operand above the other.
+We no have something like this:
+
+
+Just one more thing before we're ready: We have to add an extra row for the carry and leave it initialy blank.
+
+Now we can start columnwise from right to left to calculate our sum. The algorithm itself is very straight forward:
+
+```latex
+$\delta : \{0, 1\} \times \{0,1\} \to (R, C)$ Converts two input bits into a pair of result and carry bits $\newline$
+$R \in \{0,1\} = $ Result to write in the sum column$\newline$
+$C \in \{0,1\} = $ Carry to write in the carry row of the next left column$\\[0.5em]$
+$\delta(0,0) = (0, 0)\newline$
+$\delta(1,0) = (1, 0)\newline$
+$\delta(0,1) = (1, 0)\newline$
+$\delta(1,1) = (0, 1)\newline$
+```
+
+a
+
+```
+# 170 + 75 = 240
+
+  10101010
++ 01001011
+          
+----------
+
+
+  10101010
++ 01001011
+        0 
+----------
+         1
+
+  10101010
++ 01001011
+       10 
+----------
+        01
+
+  10101010
++ 01001011
+      010 
+----------
+       101
+
+  10101010
++ 01001011
+     1010 
+----------
+      0101
+
+  10101010
++ 01001011
+    01010 
+----------
+     10101
+
+  10101010
++ 01001011
+   001010 
+----------
+    110101
+
+  10101010
++ 01001011
+  0001010 
+----------
+   1110101
+
+  10101010
++ 01001011
+  0001010 
+----------
+  11110101
+```
+
+<!--
+	Illustration of two binary numbers
+-->
+
+
